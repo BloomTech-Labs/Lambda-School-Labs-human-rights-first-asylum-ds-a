@@ -9,9 +9,12 @@ import psycopg2
 import pandas as pd
 from app.db import get_db_connection
 
-
-
 router = APIRouter()
+
+
+"""
+This file is for containing the basic routes of the API
+"""
 
 
 @router.get('/dbtest')

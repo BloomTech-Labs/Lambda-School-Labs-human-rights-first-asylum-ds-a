@@ -2,13 +2,15 @@
 
 import os
 import pandas as pd
-
 from dotenv import load_dotenv
 from fastapi import APIRouter, Depends
 import sqlalchemy
+from sqlalchemy import Column, ForeignKey, Integer, String, Date, Boolean
+from sqlalchemy.ext.declarative import declarative_base
 import psycopg2
 
 router = APIRouter()
+Base = declarative_base()
 
 """
 This file will contain functions, classes, and logic regarding the database connection to the AWS RDS Database.
@@ -24,7 +26,7 @@ def get_db_connection():
     FUNCTION: When called, will return a connection to the AWS RDS database
     being used for the HRFAsylum project
 
-    RETURNS: Cursor Object
+    RETURNS: Database Connection
     """
     # Credentials for connecting to the database
     rds_username = os.getenv('rds_username')
@@ -36,37 +38,41 @@ def get_db_connection():
     
     return psycopg2.connect(host=rds_endpoint, user=rds_username, password=rds_password)
 
+"""
+Define the classes used for constructing database objects for storing within the aws rds db
+"""
 
-# async def get_db() -> sqlalchemy.engine.base.Connection:
-#     """Get a SQLAlchemy database connection.
-    
-#     Uses this environment variable if it exists:  
-#     DATABASE_URL=dialect://user:password@host/dbname
+class Case(Base):
+    """
+    Class for defining a database object for inserting into the database in the table 'Case'
+    """
+    __tablename__ = 'case'
 
-#     Otherwise uses a SQLite database for initial local development.
-#     """
-#     load_dotenv()
-#     database_url = os.getenv('DATABASE_URL')
-#     engine = sqlalchemy.create_engine(database_url)
-#     connection = engine.connect()
-#     try:
-#         yield connection
-#     finally:
-#         connection.close()
+    id = Column(Integer, primary_key=True)
+    column_id = Column(Integer)
+    case_url = Column(String(250))
+    court_type = Column(String(250))
+    hearing_type = Column(String(250))
+    credibility_of_refugee = Column(String(250))
+    refugee_origin = Column(String(250))
+    hearing_location = Column(String(250))
+    protected_ground = Column(String(250))
+    hearing_date = Column(Date)
+    decision_date = Column(Date)
+    social_group = Column(String(250))
+    judge_id = Column(Integer)
 
+class Judge(Base):
+    """
+    Class for defining a database object for inserting into the database in the table 'Case'
+    """
+    __tablename__ = 'judge'
 
-# @router.get('/info')
-# async def get_url(connection=Depends(get_db)):
-#     """Verify we can connect to the database, 
-#     and return the database URL in this format:
-
-#     dialect://user:password@host/dbname
-
-#     The password will be hidden with ***
-#     """
-#     url_without_password = repr(connection.engine.url)
-#     return {'database_url': url_without_password}
-
-
-
+    id = Column(Integer, primary_key=True)
+    name = Column(String(250))
+    trump_appointed = Column(Boolean)  
+    date_appointed = Column(Date)
+    county = Column(String(250))
+    birth_date = Column(Date)
+    biography = Column(String(250))
 

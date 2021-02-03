@@ -17,8 +17,11 @@ pypdf2 = "*"
 python-multipart = "*"
 pandas = "*"
 pipx = "*"
+uvloop = "*"
+httptools = "*"
 
 [dev-packages]
+jupyter = "*"
 
 [requires]
 python_version = "3"

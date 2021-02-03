@@ -1,3 +1,7 @@
+"""
+Optical Character Recognition
+"""
+
 import os
 os.environ["OMP_NUM_THREADS"]= '1'
 os.environ["OMP_THREAD_LIMIT"] = '1'
@@ -7,7 +11,6 @@ os.environ["OMP_NUM_THREADS"] = '1'
 os.environ["PAPERLESS_AVX2_AVAILABLE"]="false"
 os.environ["OCR_THREADS"] = '1'
 
-
 from PIL import Image
 import pytesseract
 from pdf2image import convert_from_bytes
@@ -16,10 +19,17 @@ import sqlalchemy
 from dotenv import load_dotenv, find_dotenv
 from sqlalchemy import create_engine
 from PyPDF2 import PdfFileReader
-
 from io import BytesIO
 
-import app.test
+
+"""
+This file will contain functions and other operations with regards to reading in PDF files, converting them to 
+text, and returning that text to the API call
+
+Further development should incorporate changes to move the OCR text into the next phase of the pipeline for 
+extracting entities for saving into the DB.
+"""
+
 
 router = APIRouter()
 
