@@ -19,6 +19,7 @@ We built an application for human rights first, a 501(c)3 organization. Our appl
  * [Pytesseract](https://github.com/madmaze/pytesseract)
  * [FastAPI](https://github.com/tiangolo/fastapi)
  * [AWS Elastic Beanstalk](https://aws.amazon.com/elasticbeanstalk/)
+ * [Heroku Deployment tutorial](https://docs.labs.lambdaschool.com/ds-bw/units-3-and-4/plotly-dash)
 
 ## Installation
 
